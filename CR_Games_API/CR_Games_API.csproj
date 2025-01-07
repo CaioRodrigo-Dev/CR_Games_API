@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CR_Games_API - Infra\CR_Games_API - Infra.csproj" />
+    <ProjectReference Include="..\CR_Games_API - Service\CR_Games_API - Service.csproj" />
   </ItemGroup>
 
 </Project>

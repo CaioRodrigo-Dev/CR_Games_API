@@ -23,4 +23,10 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CR_Games_API - Domain\CR_Games_API - Domain.csproj" />
+    <ProjectReference Include="..\CR_Games_API - DTO\CR_Games_API - DTO.csproj" />
+    <ProjectReference Include="..\CR_Games_API - Infra\CR_Games_API - Infra.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -43,7 +43,7 @@ namespace CR_Games_API___Service.User
                 throw new Exception("Campo e-mail e CPF deve ser preenchido.");
             }
 
-            ValidateAge(request.Idade);
+            ValidateAge(request.Age);
             ValidatePasswordRequestDTO(request.Password);
 
             var existingUser = await _baseRepository.Find(x => x.Email == request.Email || x.Cpf == request.Cpf);
@@ -56,11 +56,11 @@ namespace CR_Games_API___Service.User
             {
                 var user = new UserDomain
                 {
-                    Nome = request.Nome,
-                    Idade = request.Idade,
+                    Name = request.Name,
+                    Age = request.Age,
                     Email = request.Email,
                     Password = request.Password,
-                    Endereco = request.Endereco,
+                    Address = request.Address,
                     Cpf = request.Cpf
                 };
 
@@ -83,12 +83,12 @@ namespace CR_Games_API___Service.User
 
             if (!isPermitted)
             {
-                throw new Exception("O email deve ter um provedor permitido: @gmail.com, @outlook.com, @hotmail.com ou @yahoo.com.");
+                throw new Exception("The email must contain an allowed provider: @gmail.com, @outlook.com, @hotmail.com, @yahoo.com");
             }
 
             if (email.Length < 12)
             {
-                throw new Exception("E-mail deve conter no minimo 12 caracteres.");
+                throw new Exception("The email must contain at least 12 characters");
             }
         }
 

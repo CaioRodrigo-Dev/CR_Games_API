@@ -10,11 +10,11 @@ namespace CR_Games_API___DTO.Request.User
     public class CreateUserRequestDTO
     {
 
-        [Required(ErrorMessage = "É NECESSARIO INFORMAR A IDADE DO USUARIO NO MOMENTO DO CADASTRO.")]
-        public int Idade { get; set; }
+        [Required(ErrorMessage = "The user's age is mandatory.")]
+        public int Age { get; set; }
 
         [Required]
-        public string Nome { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [MaxLength(11)]
@@ -23,7 +23,7 @@ namespace CR_Games_API___DTO.Request.User
 
         [MaxLength(120)]
         [MinLength(4)]
-        public string Endereco { get; set; }
+        public string Address { get; set; }
 
         public string Email { get; set; }
 

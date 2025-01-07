@@ -11,15 +11,15 @@ namespace CR_Games_API___Domain.Entities.User
     public class UserDomain : BaseDomain
     {
 
-        public string Nome { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public int Idade { get; set; }
+        public int Age { get; set; }
 
         [Required]
         public string Cpf { get; set; }
 
-        public string Endereco { get; set; }
+        public string Address { get; set; }
 
         public string Email { get; set; }
 

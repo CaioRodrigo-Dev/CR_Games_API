@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CR_Games_API - Infra\CR_Games_API - Infra.csproj" />
   </ItemGroup>
 

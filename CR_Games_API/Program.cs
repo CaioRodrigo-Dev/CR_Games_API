@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using CR_Games_API___Infra;
+using CR_Games_API___Infra.DBContext;
+using CR_Games_API___Infra.Repoitory.Interfaces;
+using CR_Games_API___Infra.Repoitory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +13,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 #region Repository DI
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+#endregion
+
+#region Service DI
 
 #endregion
 

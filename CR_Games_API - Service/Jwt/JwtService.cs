@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CR_Games_API___Service.Auth
+namespace CR_Games_API___Service.Jwt
 {
     public class JwtService
     {

@@ -4,7 +4,7 @@ using CR_Games_API___Infra;
 using CR_Games_API___Infra.DBContext;
 using CR_Games_API___Infra.Repoitory.Interfaces;
 using CR_Games_API___Infra.Repoitory;
-using CR_Games_API___Service.Auth;
+using CR_Games_API___Service.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddSingleton<JwtService>();
+
 #region Repository DI
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 #endregion

@@ -74,6 +74,147 @@ namespace CR_Games_API___Service.User
             };
         }
 
+        public async Task<GetUserByCpfResponseDTO> GetUserByCpf(GetUserByCpfRequestDTO request)
+        {
+            if (string.IsNullOrEmpty(request.Cpf))
+                throw new Exception("O nome não pode ser vazio.");
+
+            var getUser = await _baseRepository.Find(x => x.Cpf == request.Cpf);
+
+            if (getUser == null)
+                throw new Exception("Usuário não localizado.");
+
+            return new GetUserByCpfResponseDTO
+            {
+                Name = getUser.Name,
+                Age = getUser.Age,
+                Cpf = request.Cpf,
+                Email = getUser.Email,
+
+            };
+        }
+
+        public async Task<DeleteUserResponseDTO> DeleteUser(DeleteUserRequestDTO request)
+        {
+            if (string.IsNullOrEmpty(request.Cpf))
+                throw new Exception("O CPF não pode ser nulo ou vazio.");
+            else
+            {
+                ValidateCPFFormat(request.Cpf);
+            }
+
+            var deletedUser = await _baseRepository.Find(x => x.Cpf == request.Cpf);
+
+            if (deletedUser == null)
+                throw new Exception("Usuário não encontrado com o CPF especificado.");
+
+            await _baseRepository.Delete(deletedUser);
+
+            throw new Exception($"Usuario {request.Cpf} deletado com sucesso.");
+        }
+
+        public async Task<UpdateUserResponseDTO> UpdateUser(UpdateUserRequestDTO request)
+        {
+            var user = await _baseRepository.Find(x => x.Cpf == request.Cpf);
+
+            if (user == null)
+                throw new Exception("Usuário não localizado.");
+
+            user.Name = request.Name ?? user.Name;
+            user.Email = request.Email ?? user.Email;
+            user.Address = request.Address ?? user.Address;
+            user.UpdatedDate = DateTime.Now;
+
+            await _baseRepository.Update(user);
+
+            return new UpdateUserResponseDTO
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Address = user.Address,
+                UpdatedAt = user.UpdatedDate
+            };
+        }
+
+        public async Task<List<GetUserResponseDTO>> GetAllUsers()
+        {
+            {
+                var users = await _baseRepository.GetAllUsers();
+
+                var userDtos = users.Select(user => new GetUserResponseDTO
+                {
+                    Cpf = user.Cpf,
+                    Name = user.Name,
+                    Age = user.Age,
+                    Email = user.Email,
+
+                }).ToList();
+
+                return userDtos;
+            }
+        }
+
+        public async Task<List<GetUserResponseDTO>> GetAllUsersByName(GetUserRequestDTO request)
+        {
+            if (string.IsNullOrEmpty(request.Name))
+                throw new Exception("O nome não pode ser vazio.");
+
+            var userList = await _baseRepository.FindAll(x => x.Name.ToLower().Contains(request.Name.ToLower()));
+
+            if (userList == null || !userList.Any())
+                throw new Exception("Usuário não localizado.");
+
+            var listUserResponseDTO = userList.Select(user => new GetUserResponseDTO
+            {
+                Name = user.Name,
+                Age = user.Age,
+                Email = user.Email,
+                Cpf = user.Cpf
+            }).ToList();
+
+            return listUserResponseDTO;
+        }
+        public async Task<DeleteUserByIdResponseDTO> DeleteUserById(DeleteUserByIdRequestDTO request)
+        {
+            if (request.Id <= 0)
+                throw new Exception("O campo não pode ser nulo ou vazio.");
+
+            var deletedUser = await _baseRepository.Find(x => x.Id == request.Id);
+
+            if (deletedUser == null)
+                throw new Exception("Usuário não encontrado com o CPF especificado.");
+
+            await _baseRepository.Delete(deletedUser);
+
+            throw new Exception($"Usuario {request.Id} deletado com sucesso.");
+        }
+
+        public async Task DeleteAllUsers()
+        {
+            await _baseRepository.DeleteAllUsers();
+        }
+
+        public async Task<bool> ChangePassword(ChangePasswordRequestDTO request)
+        {
+            var user = await _baseRepository.Find(x => x.Email == request.Email);
+            if (user == null)
+            {
+                throw new Exception("Usuário não encontrado.");
+            }
+
+            if (user.Password != request.CurrentPassword)
+            {
+                throw new Exception("Senha atual incorreta.");
+            }
+
+            ValidatePasswordRequestDTO(request.NewPassword);
+
+            user.Password = request.NewPassword;
+            await _baseRepository.Update(user);
+
+            return true;
+        }
+
         #region Private Methods
         private void ValidateEmailRequestDTO(string email)
         {

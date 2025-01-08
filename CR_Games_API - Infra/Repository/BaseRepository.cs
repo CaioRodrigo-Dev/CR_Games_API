@@ -46,6 +46,30 @@ namespace CR_Games_API___Infra.Repoitory
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<List<TDomain>> GetAllUsers() =>
+          await _dbContext.Set<TDomain>().ToListAsync();
+
+        public async Task<List<TDomain>> FindAll(Expression<Func<TDomain, bool>> whereByExpression) =>
+            await _dbContext.Set<TDomain>().Where(whereByExpression).Where(x => x.DeletedAt == null).ToListAsync();
+
+        public async Task DeleteAllUsers()
+        {
+            var users = await _dbContext.Set<TDomain>().ToListAsync();
+            _dbContext.RemoveRange(users);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<TDomain>> FindAllWithIncludes(Expression<Func<TDomain, bool>> whereByExpression,
+            params Expression<Func<TDomain, object>>[] includes)
+        {
+            IQueryable<TDomain> query = _dbContext.Set<TDomain>();
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.Where(whereByExpression).ToListAsync();
+        }
         #endregion
     }
 }

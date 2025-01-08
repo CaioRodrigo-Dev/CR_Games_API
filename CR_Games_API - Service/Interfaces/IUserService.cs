@@ -12,5 +12,14 @@ namespace CR_Games_API___Service.Interfaces
     public interface IUserService
     {
         Task<CreateUserResponseDTO> CreateUser(CreateUserRequestDTO request);
+
+        Task<GetUserByCpfResponseDTO> GetUserByCpf(GetUserByCpfRequestDTO request);
+        Task<DeleteUserResponseDTO> DeleteUser(DeleteUserRequestDTO request);
+        Task<UpdateUserResponseDTO> UpdateUser(UpdateUserRequestDTO request);
+        Task<List<GetUserResponseDTO>> GetAllUsers();
+        Task<List<GetUserResponseDTO>> GetAllUsersByName(GetUserRequestDTO request);
+        Task<DeleteUserByIdResponseDTO> DeleteUserById(DeleteUserByIdRequestDTO request);
+        Task DeleteAllUsers();
+        Task<bool> ChangePassword(ChangePasswordRequestDTO request);
     }
 }

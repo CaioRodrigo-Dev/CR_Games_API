@@ -7,6 +7,7 @@ using CR_Games_API___Infra.Repoitory;
 using CR_Games_API___Service.Auth;
 using CR_Games_API___Service.User;
 using CR_Games_API___Service.Interfaces;
+using CR_Games_API___Service.Games;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddSingleton<JwtService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<GamesService>();
 
 #region Repository DI
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
@@ -28,6 +30,7 @@ builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 #region Service DI
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IGamesService, GamesService>();
 #endregion
 
 

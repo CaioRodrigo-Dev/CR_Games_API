@@ -31,10 +31,11 @@ namespace CR_Games_API.Controllers
 
         catch (Exception ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(new { ErrorMessage  = ex.Message });
             }
 
         }
         #endregion
     }
 }
+ 

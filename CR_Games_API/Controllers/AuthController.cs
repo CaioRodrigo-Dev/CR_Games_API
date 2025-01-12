@@ -15,7 +15,7 @@ namespace CR_Games_API.Controllers
         #endregion
 
         #region Constructor
-        public AuthController (IAuthenticationService authService)
+        public AuthController (IAuthService authService)
         {
             _authService = authService;
         }

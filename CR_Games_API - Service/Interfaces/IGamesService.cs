@@ -13,5 +13,6 @@ namespace CR_Games_API___Service.Interfaces
         Task<AddGameResponseDTO> AddGame(AddGameRequestDTO request);
         Task<GetGameByIdResponseDTO> GetGameById(GetGameByIdRequestDTO request);
         Task DeleteGameById(DeleteGameByIdRequestDTO request);
+        Task<UpdateGameResponseDTO> UpdateGame(UpdateGameRequestDTO request);
     }
 }

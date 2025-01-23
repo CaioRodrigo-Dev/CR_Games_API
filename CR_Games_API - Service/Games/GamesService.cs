@@ -121,6 +121,30 @@ namespace CR_Games_API___Service.Games
             throw new Exception($"Game com o Id {request.Id} deletado com sucesso");
         }
 
+        public async Task<UpdateGameResponseDTO> UpdateGame(UpdateGameRequestDTO request)
+        {
+            var game = await _baseRepository.Find(x => x.Id == request.Id);
+            if (game == null)
+                throw new Exception("Id nao localizado.");
+
+            game.Title = request.Title ?? game.Title;
+            game.StockQuantity = request.StockQuantity ?? game.StockQuantity;
+            game.Plataform = request.Plataform ?? game.Plataform;
+            game.Price = request.Price ?? game.Price;
+
+            await _baseRepository.Update(game);
+
+            return new UpdateGameResponseDTO
+            {
+                Title = game.Title,
+                StockQuantity = game.StockQuantity,
+                Plataform = game.Plataform,
+                Price = game.Price,
+                UpdatedAt = game.UpdatedDate,
+
+            };
+        }
+
         #region Private Methods
         private void ValidateStringField(string request, string errorMessage)
         {

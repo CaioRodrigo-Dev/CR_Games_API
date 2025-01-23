@@ -66,6 +66,23 @@ namespace CR_Games_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("UpdateGame")]
+        public async Task<IActionResult> UpdateGame([FromBody]UpdateGameRequestDTO request)
+        {
+            try
+            {
+                var updatedGame = await _gamesService.UpdateGame(request);
+                if (updatedGame == null)
+                    throw new Exception("Game não encontrado");
+                return Ok("Informações do Game atualizada");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
         #endregion
     }
 }

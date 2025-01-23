@@ -11,5 +11,6 @@ namespace CR_Games_API___Service.Interfaces
     public interface IGamesService
     {
         Task<AddGameResponseDTO> AddGame(AddGameRequestDTO request);
+        Task<GetGameByIdResponseDTO> GetGameById(GetGameByIdRequestDTO request);
     }
 }

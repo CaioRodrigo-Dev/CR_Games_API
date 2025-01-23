@@ -1,5 +1,6 @@
 ﻿using CR_Games_API___DTO.Request.Games;
 using CR_Games_API___Service.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CR_Games_API.Controllers
@@ -34,6 +35,20 @@ namespace CR_Games_API.Controllers
                 return BadRequest(new { ErrorMessage  = ex.Message });
             }
 
+        }
+
+        [HttpGet("GetGameById")]
+        public async Task<IActionResult> GetGameById([FromQuery] GetGameByIdRequestDTO request)
+        {
+            try
+            {
+                var game = await _gamesService.GetGameById(request);
+                return Ok(game);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         #endregion
     }

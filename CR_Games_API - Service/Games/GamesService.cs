@@ -85,6 +85,27 @@ namespace CR_Games_API___Service.Games
             };
         }
 
+        public async Task<GetGameByIdResponseDTO> GetGameById(GetGameByIdRequestDTO request)
+        {
+            if (request == null)
+
+                throw new Exception("O Id nao pode ser nulo ou vazio.");
+
+            var gameId = await _baseRepository.Find(x => x.Id == request.Id);
+
+            if (gameId == null)
+                throw new Exception("Game com o Id especificado não encontrado");
+
+            return new GetGameByIdResponseDTO
+            {
+                Title = gameId.Title,
+                Description = gameId.Description,
+                Price = gameId.Price,
+                Plataform = gameId.Plataform,
+                StockQuantity = gameId.StockQuantity,
+            };
+
+        } 
         #region Private Methods
         private void ValidateStringField(string request, string errorMessage)
         {

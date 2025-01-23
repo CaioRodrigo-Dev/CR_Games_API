@@ -105,7 +105,22 @@ namespace CR_Games_API___Service.Games
                 StockQuantity = gameId.StockQuantity,
             };
 
-        } 
+        }
+
+        public async Task DeleteGameById(DeleteGameByIdRequestDTO request)
+        {
+            if (request == null)
+                throw new Exception("O Id do game a ser deletado nao pode ser nulo.");
+
+            var gameId = await _baseRepository.Find(x => x.Id == request.Id);
+
+            if (gameId == null)
+                throw new Exception("Id nao encontrado no sistema");
+
+            await _baseRepository.Delete(gameId);
+            throw new Exception($"Game com o Id {request.Id} deletado com sucesso");
+        }
+
         #region Private Methods
         private void ValidateStringField(string request, string errorMessage)
         {

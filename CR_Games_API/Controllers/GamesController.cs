@@ -1,4 +1,5 @@
 ﻿using CR_Games_API___DTO.Request.Games;
+using CR_Games_API___DTO.Response.Games;
 using CR_Games_API___Service.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -50,7 +51,21 @@ namespace CR_Games_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("DeleteGameById")]
+        public async Task<IActionResult> DeleteGameById (DeleteGameByIdRequestDTO request)
+        {
+            try
+            {
+                await _gamesService.DeleteGameById(request);
+                return Ok();
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         #endregion
     }
 }
- 

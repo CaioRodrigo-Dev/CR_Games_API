@@ -31,9 +31,9 @@ namespace CR_Games_API.Controllers
                 return new JsonResult(result);
             }
 
-        catch (Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(new { ErrorMessage  = ex.Message });
+                return BadRequest(ex.Message);
             }
 
         }
@@ -53,7 +53,7 @@ namespace CR_Games_API.Controllers
         }
 
         [HttpDelete("DeleteGameById")]
-        public async Task<IActionResult> DeleteGameById (DeleteGameByIdRequestDTO request)
+        public async Task<IActionResult> DeleteGameById(DeleteGameByIdRequestDTO request)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace CR_Games_API.Controllers
         }
 
         [HttpPut("UpdateGame")]
-        public async Task<IActionResult> UpdateGame([FromBody]UpdateGameRequestDTO request)
+        public async Task<IActionResult> UpdateGame([FromBody] UpdateGameRequestDTO request)
         {
             try
             {
